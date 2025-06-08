@@ -25,6 +25,16 @@ type LoginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// Register godoc
+// @Summary Cadastra um novo usuário
+// @Description Registra um usuário com nome, email e senha
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param request body RegisterRequest true "Dados do usuário"
+// @Success 201 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /auth/register [post]
 func Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -42,6 +52,17 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "user registered"})
 }
 
+// Login godoc
+// @Summary Realiza login de um usuário
+// @Description Autentica usuário e retorna um token JWT
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param request body LoginRequest true "Credenciais do usuário"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Failure 401 {object} map[string]string
+// @Router /auth/login [post]
 func Login(c *gin.Context) {
 	var req LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -59,6 +80,15 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"token": token})
 }
 
+// Profile godoc
+// @Summary Retorna o perfil do usuário autenticado
+// @Description Requer um token JWT válido no header Authorization
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 401 {object} map[string]string
+// @Router /api/profile [get]
+// @Security ApiKeyAuth
 func Profile(c *gin.Context) {
 	userID, exists := c.Get("user_id")
 	if !exists {
