@@ -5,7 +5,6 @@ import (
 	"github.com/marcuslinhares/auth-service/config"
 	"github.com/marcuslinhares/auth-service/controllers"
 	_ "github.com/marcuslinhares/auth-service/docs"
-	"github.com/marcuslinhares/auth-service/middleware"
 	"github.com/marcuslinhares/auth-service/repositories"
 	"github.com/marcuslinhares/auth-service/services"
 	swaggerFiles "github.com/swaggo/files"
