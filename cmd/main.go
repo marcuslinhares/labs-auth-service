@@ -36,10 +36,10 @@ func main() {
 		auth.POST("/login", controllers.Login)
 	}
 
-	api := r.Group("/api")
-	api.Use(middleware.JWTAuthMiddleware())
+	verify := r.Group("/verify")
+	verify.Use(middleware.JWTAuthMiddleware())
 	{
-		api.GET("/profile", controllers.Profile)
+		verify.GET("/", controllers.Profile)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
